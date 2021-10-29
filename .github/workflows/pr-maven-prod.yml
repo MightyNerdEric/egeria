@@ -26,7 +26,7 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-java11
       - name: Build with Maven
         run: mvn -B -DargLine="-XX:+TieredCompilation -XX:TieredStopAtLevel=1" clean verify --file pom.xml
-      - uses: mightynerderic/sigul-sign@v1
+      - uses: mightynerderic/sigul-sign@main
         name: Sign artifacts
         with:
           sign-type: "sign-data"

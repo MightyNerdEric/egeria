@@ -26,8 +26,15 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-java11
       - name: Build with Maven
         run: mvn -B -DargLine="-XX:+TieredCompilation -XX:TieredStopAtLevel=1" clean verify --file pom.xml
-      - name: Upload assemblies
+      - uses: mightynerderic/sigul-sign@v1
+        name: Sign artifacts
+        with:
+          sign-type: "sign-data"
+          sign-object: "/bin/bash"
+          sigul-ip: ${{ secrets.SIGUL_IP }}
+          sigul-uri: ${{ secrets.SIGUL_URI }}
+      - name: Upload sig
         uses: actions/upload-artifact@v2
         with:
-          name: Assemblies
-          path: open-metadata-distribution/open-metadata-assemblies/target/*.gz
+          name: Signatures
+          path: open-metadata-distribution/open-metadata-assemblies/target/*.asc

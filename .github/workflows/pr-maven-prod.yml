@@ -24,8 +24,6 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-maven-java11-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-java11
-      - name: Build with Maven
-        run: mvn -B -DargLine="-XX:+TieredCompilation -XX:TieredStopAtLevel=1" clean verify --file pom.xml
       - uses: mightynerderic/sigul-sign@main
         name: Sign artifacts
         with:
@@ -33,6 +31,10 @@ jobs:
           sign-object: "/bin/bash"
           sigul-ip: ${{ secrets.SIGUL_IP }}
           sigul-uri: ${{ secrets.SIGUL_URI }}
+          sigul-pass: ${{ secrets.SIGUL_PASS }}
+          sigul-pki: ${{ secrets.SIGUL_PKI }}
+      - name: Build with Maven
+        run: mvn -B -DargLine="-XX:+TieredCompilation -XX:TieredStopAtLevel=1" clean verify --file pom.xml
       - name: Upload sig
         uses: actions/upload-artifact@v2
         with:

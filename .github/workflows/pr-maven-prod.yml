@@ -27,8 +27,8 @@ jobs:
       - uses: mightynerderic/sigul-sign@main
         name: Sign artifacts
         with:
-          sign-type: "sign-data"
-          sign-object: "/bin/bash"
+          sign-type: "sign-dir"
+          sign-object: "${{ github.workspace }}/release-notes"
           sigul-ip: ${{ secrets.SIGUL_IP }}
           sigul-uri: ${{ secrets.SIGUL_URI }}
           sigul-conf: ${{ secrets.SIGUL_CONF }}

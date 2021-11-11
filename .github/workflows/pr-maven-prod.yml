@@ -27,7 +27,8 @@ jobs:
       - uses: mightynerderic/sigul-sign@main
         name: Sign artifacts
         with:
-          sign-object: "${{ github.workspace }}/release-notes"
+          sign-object: "${{ github.workspace }}/LICENSE"
+          sigul-key-name: "odpi-release-2021"
           sigul-ip: ${{ secrets.SIGUL_IP }}
           sigul-uri: ${{ secrets.SIGUL_URI }}
           sigul-conf: ${{ secrets.SIGUL_CONF }}

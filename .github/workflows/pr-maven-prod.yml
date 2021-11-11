@@ -24,15 +24,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-maven-java11-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-java11
-      # - uses: oleksiyrudenko/gha-git-credentials@v2.1
-      #   with:
-      #     global: false
-      #     name: ${{ github.actor }}
-      #     token: '${{ secrets.GHA_TOKEN }}'
       - uses: mightynerderic/sigul-sign@main
         name: Sign artifacts
         with:
-          sign-object: "v1.signme"
+          sign-object: "v2.signme"
           sign-type: "sign-git-tag"
           sigul-key-name: "odpi-release-2021"
           gh-key: ${{ secrets.GHA_TOKEN }}
@@ -41,10 +36,10 @@ jobs:
           sigul-conf: ${{ secrets.SIGUL_CONF }}
           sigul-pass: ${{ secrets.SIGUL_PASS }}
           sigul-pki: ${{ secrets.SIGUL_PKI }}
-      - name: Upload sig
-        uses: actions/upload-artifact@v2
-        with:
-          name: Signatures
-          path: ${{ github.workspace }}/*.asc
+      # - name: Upload sig
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Signatures
+      #     path: ${{ github.workspace }}/*.asc
       - name: Build with Maven
         run: mvn -B -DargLine="-XX:+TieredCompilation -XX:TieredStopAtLevel=1" clean verify --file pom.xml

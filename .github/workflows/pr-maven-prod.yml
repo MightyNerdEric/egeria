@@ -24,10 +24,15 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-maven-java11-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-java11
-      - uses: mightynerderic/sigul-sign@3b267b8c8c5371664ca15b0900475b1114552d73
+      - uses: mightynerderic/sigul-sign@c87404cf61fcdbc71c39efcaa51be9788199c2e7
         name: Sign artifacts
         with:
-          sign-object: "${{ github.workspace }}/LICENSE"
+          sign-object: |
+            LICENSE
+            INFO.yaml
+            Gemfile
+            release-notes/README.md
+            README.md
           sign-type: "sign-data"
           sigul-key-name: "odpi-release-2021"
           gh-key: ${{ secrets.GHA_TOKEN }}

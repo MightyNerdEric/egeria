@@ -28,11 +28,9 @@ jobs:
         name: Sign artifacts
         with:
           sign-object: |
-            LICENSE
-            INFO.yaml
-            Gemfile
-            release-notes/README.md
-            README.md
+            *.md
+            open-metadata-resources/*
+            open-metadata-implementation/README.md
           sign-type: "sign-data"
           sigul-key-name: "odpi-release-2021"
           gh-key: ${{ secrets.GHA_TOKEN }}
